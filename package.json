@@ -1,0 +1,12 @@
+{
+  "name": "laboration-3",
+  "version": "1.0.0",
+  "description": "1dv610 Laboration 3",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Hilja-Maria Paananen <hp222qn@student.lnu.se>",
+  "license": "ISC"
+}
