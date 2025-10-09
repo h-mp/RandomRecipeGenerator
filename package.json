@@ -12,6 +12,6 @@
   "author": "Hilja-Maria Paananen <hp222qn@student.lnu.se>",
   "license": "ISC",
   "devDependencies": {
-    "vite": "^5.4.9"
+    "vite": "^7.1.9"
   }
 }
