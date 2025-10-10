@@ -1,7 +1,15 @@
 export const recipeCardTemplate = document.createElement('template')
 recipeCardTemplate.innerHTML = `
 <style>
-
+  .recipeInstructions {
+    list-style-type: number;
+  }
+  .recipeInstructions li, .recipeIngredients li {
+    margin-bottom: 3px;
+  }
+  .recipeIngredients {
+    list-style-type: disc;
+  }
 </style>
 
 <div class="recipeCardContainer">
@@ -15,7 +23,8 @@ recipeCardTemplate.innerHTML = `
     <div class="customButtonContainer">
     </div>
     <h2>Instructions:</h2>
-    <p class="recipeInstructions"></p>
+    <ul class="recipeInstructions">
+    </ul>
   </div>
 </div>
 `
