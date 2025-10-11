@@ -2,7 +2,8 @@ export const recipeCardTemplate = document.createElement('template')
 recipeCardTemplate.innerHTML = `
 <style>
   .recipeInstructions {
-    list-style-type: number;
+    list-style-type: none;
+    padding-left: 10;
   }
   .recipeInstructions li, .recipeIngredients li {
     margin-bottom: 3px;

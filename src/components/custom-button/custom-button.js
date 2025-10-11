@@ -8,7 +8,7 @@
 import { customButtonTemplate } from './customButtonTemplate.js'
 
 customElements.define("custom-button", 
-  class Button extends HTMLElement {
+  class CustomButton extends HTMLElement {
 
     constructor () {
       super()
@@ -31,7 +31,10 @@ customElements.define("custom-button",
       spanText.textContent = this.action;
 
       btn.addEventListener('click', () => {
-        this.dispatchEvent(new Event(`button-click-${this.action}`, { bubbles: true }))
+        this.dispatchEvent(new CustomEvent(`button-click`, {
+          detail: { action: this.action },
+          bubbles: true 
+        }))
       })
     }
   }

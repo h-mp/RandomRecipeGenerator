@@ -57,6 +57,12 @@ export class RecipeFormulator {
     return ingredients
   }
 
+  /**
+   * Separates the amount and unit from a string.
+   * 
+   * @param {String} measure - The measure string from the API.
+   * @returns {Object} - An object with amount and unit properties.
+   */
   #separateAmountAndUnit(measure) {
     if (!measure) return
 
