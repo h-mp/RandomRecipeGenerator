@@ -6,7 +6,7 @@
  */
 
 import {recipeCardTemplate} from './recipeCardTemplate.js'
-import '../customButton/customButton.js'
+import '../custom-button/custom-button.js'
 
 customElements.define("recipe-card",
   class RecipeCard extends HTMLElement {
@@ -58,7 +58,9 @@ customElements.define("recipe-card",
 
       ingredients.forEach(ingredientData => {
         const listItem = document.createElement('li')
-        listItem.textContent = `${ingredientData.measure} ${ingredientData.ingredient}`
+
+        listItem.textContent = `${ingredientData.amount || ''} ${ingredientData.unit} ${ingredientData.ingredient}`
+        
         ingredientsList.appendChild(listItem)
       })
     }

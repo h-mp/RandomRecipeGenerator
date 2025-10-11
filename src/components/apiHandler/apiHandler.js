@@ -1,6 +1,10 @@
 /**
- * Class representing an API handler for fetching recipe data.
+ * The API Handler class.
+ *
+ * @author Hilja-Maria Paananen <hp222qn@student.lnu.se>
+ * @version 1.0.0
  */
+
 export class ApiHandler {
   /**
    * The base URL of the API.
@@ -23,7 +27,7 @@ export class ApiHandler {
 
       return data.meals[0]
     } catch (error) {
-      throw new Error("Failed to fetch recipe from API")
+      throw new Error("Failed to fetch data from API")
     }
   }
 

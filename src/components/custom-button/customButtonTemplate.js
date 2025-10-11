@@ -1,5 +1,5 @@
-export const buttonTemplate = document.createElement('template')
-buttonTemplate.innerHTML = `
+export const customButtonTemplate = document.createElement('template')
+customButtonTemplate.innerHTML = `
 <style>
 button {
   height: 40px;
@@ -9,7 +9,7 @@ button {
 </style>
 
 <div class="buttonContainer">
-<button type="button" class="btn" action="default">
+  <button type="button" class="btn" action="default">
     <span class="spanText">Click</span>
   </button>
 </div>
