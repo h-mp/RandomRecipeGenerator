@@ -42,16 +42,39 @@ export class RecipeFormulator {
 
     for (let i = 1; i <= 30; i++) {
       const ingredient = data[`strIngredient${i}`]
-      const measure = data[`strMeasure${i}`]
+      const measure = data[`strMeasure${i}`]      
       
       if (ingredient && ingredient.trim() !== '') {
+        const {amount, unit} = this.#separateAmountAndUnit(measure)
+
         ingredients.push({
           ingredient: ingredient.trim(),
-          measure: measure?.trim() || '',
+          amount: amount,
+          unit: unit
         })
       }
     }
     return ingredients
+  }
+
+  #separateAmountAndUnit(measure) {
+    if (!measure) return
+
+    const trimmedMeasure = measure.trim()
+
+    // Get the first number-unit combination in the string
+    const match = trimmedMeasure.match(/([\d\s\/.,½¼¾⅓⅔⅛⅜⅝⅞]+)\s*([a-zA-Z]+)?/)
+
+    if (!match) {
+      // Handle cases like "a pinch" etc.
+      return { amount: '', unit: trimmedMeasure }
+    }
+
+    const amount = match[1].trim()
+    const unit = (match[2] || '').trim()
+
+    return { amount, unit }
+
   }
 
   /**
