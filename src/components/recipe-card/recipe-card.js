@@ -17,6 +17,16 @@ customElements.define("recipe-card",
     #recipe
 
     /**
+     * The converted ingredients array.
+     */
+    #convertedIngredients
+
+    /**
+     * Indicates if the ingredients have been converted.
+     */
+    #isConvertedIngredients
+
+    /**
      * RecipeConverter instance for converting ingredient amounts.
      */
     #recipeConverter
@@ -28,20 +38,11 @@ customElements.define("recipe-card",
       this.shadowRoot.appendChild(recipeCardTemplate.content.cloneNode(true))
 
       this.#recipeConverter = new RecipeConverter()
+      this.#isConvertedIngredients = false
     }
 
     connectedCallback () {
-      const customButton = document.createElement('custom-button')
-      customButton.action = 'convert-values'
-      this.shadowRoot.querySelector('.customButtonContainer')
-      .appendChild(customButton)
-
-      customButton.addEventListener('button-click', e => {
-        if (e.detail.action === 'convert-values') {
-          const convertedIngredients = this.#recipeConverter.convertIngredientValues(this.#recipe)
-          this.#displayIngredients(convertedIngredients)
-        }
-      })
+      this.#createConvertButton()
     }
 
     /**
@@ -54,8 +55,25 @@ customElements.define("recipe-card",
         return
       }
       this.#recipe = recipeData
+      this.#convertedIngredients = undefined
 
       this.#displayRecipe(recipeData)
+    }
+
+    /**
+     * Creates and appends the custom convert button to the recipe card.
+     */
+    #createConvertButton () {
+      const customButton = document.createElement('custom-button')
+      customButton.action = 'convert-values'
+      this.shadowRoot.querySelector('.customButtonContainer')
+      .appendChild(customButton)
+
+      customButton.addEventListener('button-click', e => {
+        if (e.detail.action === 'convert-values') {
+          this.#handleRecipeConversion()
+        }
+      })
     }
 
     /**
@@ -75,6 +93,24 @@ customElements.define("recipe-card",
 
       this.#displayIngredients(recipeData.ingredients)
       this.#displayInstructions(recipeData.instructions)
+    }
+
+    /**
+     * Handles the conversion of recipe ingredient values.
+     */
+    #handleRecipeConversion () {
+      if (!this.#isConvertedIngredients) {
+        // Convert if not already converted
+        if (!this.#convertedIngredients) {
+          this.#convertedIngredients = this.#recipeConverter.convertIngredientValues(this.#recipe.ingredients)
+        }
+        this.#displayIngredients(this.#convertedIngredients)
+        this.#isConvertedIngredients = true
+      } else {
+        // Show original
+        this.#displayIngredients(this.#recipe.ingredients)
+        this.#isConvertedIngredients = false
+      }
     }
 
     /**
@@ -102,7 +138,7 @@ customElements.define("recipe-card",
      */
     #displayInstructions (instructions) {
       const instructionsList = this.shadowRoot.querySelector('.recipeInstructions')
-      instructions.innerHTML = ''
+      instructionsList.innerHTML = ''
 
       instructions.forEach(step => {
         const listItem = document.createElement('li')
