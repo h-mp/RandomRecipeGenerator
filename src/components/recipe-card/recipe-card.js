@@ -12,6 +12,11 @@ import { RecipeConverter } from '../recipeConverter/recipeConverter.js'
 customElements.define("recipe-card",
   class RecipeCard extends HTMLElement {
     /**
+     * RecipeConverter instance for converting ingredient amounts.
+     */
+    #recipeConverter
+
+    /**
      * The recipe data object.
      */
     #recipe
@@ -25,11 +30,6 @@ customElements.define("recipe-card",
      * Indicates if the ingredients have been converted.
      */
     #isConvertedIngredients
-
-    /**
-     * RecipeConverter instance for converting ingredient amounts.
-     */
-    #recipeConverter
 
     constructor () {
       super()
@@ -66,6 +66,7 @@ customElements.define("recipe-card",
     #createConvertButton () {
       const customButton = document.createElement('custom-button')
       customButton.action = 'convert-values'
+      customButton.setButtonText('Convert Values')
       this.shadowRoot.querySelector('.customButtonContainer')
       .appendChild(customButton)
 
@@ -104,12 +105,17 @@ customElements.define("recipe-card",
         if (!this.#convertedIngredients) {
           this.#convertedIngredients = this.#recipeConverter.convertIngredientValues(this.#recipe.ingredients)
         }
+
         this.#displayIngredients(this.#convertedIngredients)
         this.#isConvertedIngredients = true
+
+        this.shadowRoot.querySelector('.customButtonContainer .btn').setButtonText('Show Original')
       } else {
         // Show original
         this.#displayIngredients(this.#recipe.ingredients)
         this.#isConvertedIngredients = false
+
+        this.shadowRoot.querySelector('.customButtonContainer .btn').setButtonText('Convert Values')
       }
     }
 

@@ -9,26 +9,15 @@ import { customButtonTemplate } from './customButtonTemplate.js'
 
 customElements.define("custom-button", 
   class CustomButton extends HTMLElement {
-
     constructor () {
       super()
+
       this.attachShadow({ mode: 'open' })
       this.shadowRoot.appendChild(customButtonTemplate.content.cloneNode(true))
     }
 
-    set action(value) {
-      this.setAttribute('action', value);
-    }
-    
-    get action() {
-      return this.getAttribute('action');
-    }
-
     connectedCallback () {
       const btn = this.shadowRoot.querySelector('.btn');
-      const spanText = this.shadowRoot.querySelector('.spanText');
-
-      spanText.textContent = this.action;
 
       btn.addEventListener('click', () => {
         this.dispatchEvent(new CustomEvent(`button-click`, {
@@ -36,6 +25,25 @@ customElements.define("custom-button",
           bubbles: true 
         }))
       })
+    }
+
+    /**
+     * Sets the action attribute of the button.
+     *
+     * @param {string} value - The action value.
+     */
+    set action (value) {
+      this.setAttribute('action', value)
+    }
+
+    /**
+     * Sets the text displayed on the button.
+     *
+     * @param {string} value - The text to display on the button.
+     */
+    setButtonText (value) {
+      const spanElement = this.shadowRoot.querySelector('.spanText')
+      spanElement.textContent = value
     }
   }
 )

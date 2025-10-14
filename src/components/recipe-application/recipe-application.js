@@ -26,8 +26,16 @@ customElements.define("recipe-application",
     }
 
     connectedCallback () {
+      this.#createRandomRecipeButton()
+    }
+
+    /**
+     * Creates the button for fetching a random recipe.
+     */
+    #createRandomRecipeButton () {
       const customButton = document.createElement('custom-button')
       customButton.action = 'get-random-recipe'
+      customButton.setButtonText('Get Random Recipe')
       this.shadowRoot.querySelector('.buttonContainer').appendChild(customButton)
 
       customButton.addEventListener('button-click', e => {
