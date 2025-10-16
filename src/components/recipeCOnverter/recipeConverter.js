@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-import { UnitConverter } from '../../UnitConverter-1.0.2/UnitConverter.js'
+import { UnitConverter } from '../../UnitConverter-1.0.2/src/UnitConverter.js'
 import { UNIT_CONVERSIONS } from './unitConversions.js'
 
 export class RecipeConverter {
@@ -36,15 +36,21 @@ export class RecipeConverter {
    */
   #convertIngredient (ingredient) {
     if (!ingredient.amount || isNaN(ingredient.amount) || !ingredient.unit || ingredient.unit === '') {
-      return ingredient
+      return {...ingredient}
     }
 
     const targetConversion = this.#getConversion(ingredient.unit)
     if (!targetConversion) {
-      return ingredient
+      return {...ingredient}
     }
 
-    const convertedAmount = this.#unitConverter.convertAndRoundUp(targetConversion.category, ingredient.amount, targetConversion.targetUnit, ingredient.unit, 2)
+    const convertedAmount = this.#unitConverter.convertAndRoundUp(
+      targetConversion.category, 
+      ingredient.unit, 
+      targetConversion.targetUnit, 
+      Number(ingredient.amount), 
+      2
+    )
 
     return {
       ...ingredient,
@@ -64,6 +70,5 @@ export class RecipeConverter {
         return conversion
       }
     }
-    return undefined
   }
 }

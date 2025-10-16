@@ -109,13 +109,13 @@ customElements.define("recipe-card",
         this.#displayIngredients(this.#convertedIngredients)
         this.#isConvertedIngredients = true
 
-        this.shadowRoot.querySelector('.customButtonContainer .btn').setButtonText('Show Original')
+        this.shadowRoot.querySelector('.customButtonContainer custom-button').setButtonText('Show Original')
       } else {
         // Show original
         this.#displayIngredients(this.#recipe.ingredients)
         this.#isConvertedIngredients = false
 
-        this.shadowRoot.querySelector('.customButtonContainer .btn').setButtonText('Convert Values')
+        this.shadowRoot.querySelector('.customButtonContainer custom-button').setButtonText('Convert Values')
       }
     }
 
