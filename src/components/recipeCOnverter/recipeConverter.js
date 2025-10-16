@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-import { UnitConverter } from '../../UnitConverter-1.0.2/src/UnitConverter.js'
+import { UnitConverter } from '../../../module/UnitConverter-1.0.2/src/UnitConverter.js'
 import { UNIT_CONVERSIONS } from './unitConversions.js'
 
 export class RecipeConverter {
