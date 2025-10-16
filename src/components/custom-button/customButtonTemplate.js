@@ -9,7 +9,7 @@ button {
 </style>
 
 <div class="buttonContainer">
-  <button type="button" class="btn" action="default">
+  <button type="button" class="btn">
     <span class="spanText">Click</span>
   </button>
 </div>

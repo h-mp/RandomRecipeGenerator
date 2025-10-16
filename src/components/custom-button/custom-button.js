@@ -9,6 +9,11 @@ import { customButtonTemplate } from './customButtonTemplate.js'
 
 customElements.define("custom-button", 
   class CustomButton extends HTMLElement {
+    /**
+     * The action name for the button-click event detail.
+     */
+    #action
+
     constructor () {
       super()
 
@@ -17,23 +22,40 @@ customElements.define("custom-button",
     }
 
     connectedCallback () {
-      const btn = this.shadowRoot.querySelector('.btn');
-
-      btn.addEventListener('click', () => {
-        this.dispatchEvent(new CustomEvent(`button-click`, {
-          detail: { action: this.action },
-          bubbles: true 
-        }))
-      })
+      this.#setButtonEventListener()
     }
 
     /**
-     * Sets the action attribute of the button.
+     * Returns the action field.
+     * 
+     * @returns {string} The action name.
+     */
+    get action () {
+      return this.#action
+    }
+
+    /**
+     * Sets the action field.
      *
      * @param {string} value - The action value.
      */
     set action (value) {
-      this.setAttribute('action', value)
+      this.#action = value
+    }
+
+    /**
+     * Sets the event listener for the button click event.
+     */
+    #setButtonEventListener () {
+      const btn = this.shadowRoot.querySelector('.btn');
+
+      btn.addEventListener('click', () => {
+        this.dispatchEvent(new CustomEvent('button-click', {
+          detail: { action: this.#action },
+          bubbles: true,
+          composed: true
+        }))
+      })
     }
 
     /**
