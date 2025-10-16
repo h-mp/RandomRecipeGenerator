@@ -36,7 +36,8 @@ customElements.define("recipe-application",
       const customButton = document.createElement('custom-button')
       customButton.action = 'get-random-recipe'
       customButton.setButtonText('Get Random Recipe')
-      this.shadowRoot.querySelector('.buttonContainer').appendChild(customButton)
+
+      this.shadowRoot.querySelector('.startButtonContainer').appendChild(customButton)
 
       customButton.addEventListener('button-click', e => {
         if (e.detail.action === 'get-random-recipe') {
