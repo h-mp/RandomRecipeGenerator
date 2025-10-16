@@ -24,6 +24,10 @@ recipeApplicationTemplate.innerHTML = `
     align-items: center;
     margin: 40px 0;
   }
+
+  .recipeCardContainer {
+    display: none;
+  }
 </style>
 
 <div id="recipeAppContainer">

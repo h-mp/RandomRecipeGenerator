@@ -59,6 +59,7 @@ customElements.define("recipe-application",
       }
 
       this.#recipeCard.recipe = formulatedRecipe
+      this.shadowRoot.querySelector('.recipeCardContainer').style.display = 'flex'
     }
 
     /**
