@@ -48,7 +48,7 @@ export class RecipeConverter {
       targetConversion.category, 
       ingredient.unit, 
       targetConversion.targetUnit, 
-      Number(ingredient.amount), 
+      parseFloat(ingredient.amount), 
       2
     )
 

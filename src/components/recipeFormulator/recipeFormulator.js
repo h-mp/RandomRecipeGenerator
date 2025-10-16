@@ -79,8 +79,50 @@ export class RecipeFormulator {
     const amount = match[1].trim()
     const unit = (match[2] || '').trim()
 
-    return { amount, unit }
+    const convertedAmount = this.#convertMixedAmounts(amount)
 
+    return { amount: convertedAmount, unit }
+  }
+
+  /**
+   * Converts mixed amount strings to a float value.
+   * 
+   * @param {String} amountStr - The amount string from the measure.
+   */
+  #convertMixedAmounts(amountStr) {
+    if (!amountStr) return '' 
+
+    // Mixed numbers
+    if (amountStr.includes(' ')) {
+      return this.#convertMixedNumbers(amountStr)
+    }
+
+    // Fractions
+    if (amountStr.includes('/')) {
+      return this.#convertFraction(amountStr)
+    }
+
+    return parseFloat(amountStr)
+  }
+
+  /**
+   * Converts mixed number strings to a usable float value.
+   * 
+   * @param {String} amountStr - The mixed number string.
+   */
+  #convertMixedNumbers(amountStr) {
+    const [whole, fraction] = amountStr.split(' ')
+    return parseFloat(whole) + this.#convertFraction(fraction)
+  }
+
+  /**
+   * Converts a fraction string to a usable float value.
+   * 
+   * @param {String} fractionStr - The fraction string.
+   */
+  #convertFraction(fractionStr) {
+    const [numerator, denominator] = fractionStr.split('/')
+    return parseFloat(numerator) / parseFloat(denominator)
   }
 
   /**
