@@ -28,13 +28,20 @@ recipeApplicationTemplate.innerHTML = `
   .recipeCardContainer {
     display: none;
   }
+
+  #errorMessage {
+    color: red;
+    text-align: center;
+    display: none;
+  }
 </style>
 
 <div id="recipeAppContainer">
   <h1>Random Recipe Generator</h1>
   <p>Click the button below to fetch a random recipe!</p>
   <div class="startButtonContainer">
- </div>
+  </div>
+  <p id="errorMessage">A problem occurred, please try again.</p>
   <div class="recipeCardContainer">
   </div>
 </div>

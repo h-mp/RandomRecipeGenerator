@@ -18,6 +18,7 @@ export class RecipeFormulator {
     if (!recipeData) {
       throw new Error("No data provided to formulate")
     }
+
     const ingredients = this.#separateIngredientData(recipeData)
     const instructions = this.#formatInstructions(recipeData.strInstructions)
 
@@ -39,18 +40,19 @@ export class RecipeFormulator {
    */
   #separateIngredientData(data) {
     const ingredients = []
+    const maxIngredients = 30
 
-    for (let i = 1; i <= 30; i++) {
+    for (let i = 1; i <= maxIngredients; i++) {
       const ingredient = data[`strIngredient${i}`]
       const measure = data[`strMeasure${i}`]      
       
       if (ingredient && ingredient.trim() !== '') {
-        const {amount, unit} = this.#separateAmountAndUnit(measure)
+        const {amount, unit} = this.#separateAmountAndUnit(measure || '')
 
         ingredients.push({
           ingredient: ingredient.trim(),
-          amount: amount,
-          unit: unit
+          amount: amount || '',
+          unit: unit || ''
         })
       }
     }
@@ -64,24 +66,21 @@ export class RecipeFormulator {
    * @returns {Object} - An object with amount and unit properties.
    */
   #separateAmountAndUnit(measure) {
-    if (!measure) return
+    if (!measure) return { amount: '', unit: '' }
 
     const trimmedMeasure = measure.trim()
 
     // Get the first number-unit combination in the string
-    const match = trimmedMeasure.match(/([\d\s\/.,½¼¾⅓⅔⅛⅜⅝⅞]+)\s*([a-zA-Z]+)?/)
+    const match = trimmedMeasure.match(/^([\d\s\/.,½¼¾⅓⅔⅛⅜⅝⅞]+)?\s*(.*)$/)
 
-    if (!match) {
-      // Handle cases like "a pinch" etc.
-      return { amount: '', unit: trimmedMeasure }
-    }
+    if (!match) return { amount: '', unit: '' }
 
-    const amount = match[1].trim()
-    const unit = (match[2] || '').trim()
+    const numberAmount = match[1] ? match[1].trim() : ''
+    const unitText = match[2] ? match[2].trim() : ''
 
-    const convertedAmount = this.#convertMixedAmounts(amount)
+    const convertedAmount = this.#convertMixedAmounts(numberAmount)
 
-    return { amount: convertedAmount, unit }
+    return { amount: convertedAmount, unit: unitText }
   }
 
   /**
@@ -90,7 +89,7 @@ export class RecipeFormulator {
    * @param {String} amountStr - The amount string from the measure.
    */
   #convertMixedAmounts(amountStr) {
-    if (!amountStr) return '' 
+    if (!amountStr || amountStr.trim() === '') return ''
 
     // Mixed numbers
     if (amountStr.includes(' ')) {
@@ -132,11 +131,13 @@ export class RecipeFormulator {
    * @returns {Array} - An array of formatted instruction steps.
    */
   #formatInstructions(instructions) {
-    // Split instructions by new lines.
-    const formattedInstructions = instructions.split('\r\n')
-    // Trim whitespace from each step and filter out empty strings.
-    formattedInstructions.map(step => step.trim())
-    formattedInstructions.filter(step => step !== "")
-    return formattedInstructions
+    if (!instructions || instructions.trim() === '') {
+      return ['No instructions provided.']
+    }
+    // Split by new lines and remove empty lines
+    return instructions
+      .split(/\r?\n/)
+      .map(step => step.trim())
+      .filter(step => step !== '')
   }
 }

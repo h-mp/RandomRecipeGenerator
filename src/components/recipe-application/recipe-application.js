@@ -50,16 +50,30 @@ customElements.define("recipe-application",
      * Displays a random recipe.
      */
     async #displayRandomRecipe () {
-      const recipe = await this.#fetchRecipe()
-      const formulatedRecipe = this.#formulateRecipeData(recipe)
+      try {
+        const recipe = await this.#fetchRecipe()
+        const formulatedRecipe = this.#formulateRecipeData(recipe)
 
-      // Create recipe card if it doesn't exist.
-      if (recipe && !this.#recipeCard) {
-        this.#createRecipeCard()
+        // Create recipe card if it doesn't exist.
+        if (recipe && !this.#recipeCard) {
+          this.#createRecipeCard()
+        }
+
+        this.#recipeCard.recipe = formulatedRecipe
+        this.shadowRoot.querySelector('.recipeCardContainer').style.display = 'flex'
+      } catch (error) {
+        this.#showErrorMessage()
       }
+    }
 
-      this.#recipeCard.recipe = formulatedRecipe
-      this.shadowRoot.querySelector('.recipeCardContainer').style.display = 'flex'
+    /**
+     * Shows an error message in the UI.
+     */
+    #showErrorMessage () {
+      const errorMessage = this.shadowRoot.querySelector('#errorMessage')
+      errorMessage.style.display = 'block'
+
+      console.error('Error fetching or displaying recipe:', error.message)
     }
 
     /**
@@ -68,7 +82,9 @@ customElements.define("recipe-application",
      * @returns {Object} A random recipe object from the API.
      */
     async #fetchRecipe () {
-      const apiHandler = new ApiHandler('https://www.themealdb.com/api/json/v1/1')
+      const apiUrl = import.meta.env.VITE_THEMEALDB_API_URL
+      
+      const apiHandler = new ApiHandler(apiUrl)
       const recipe = await apiHandler.fetchRandomRecipe()
       return recipe
     }

@@ -10,9 +10,15 @@ export class ApiHandler {
    * The base URL of the API.
    */
   #baseURL
+
+  /**
+   * The endpoint for fetching a random recipe.
+   */
+  #randomRecipeEndpoint
   
   constructor(baseURL) {
     this.#baseURL = baseURL
+    this.#randomRecipeEndpoint = '/random.php'
   }
 
   /**
@@ -22,7 +28,7 @@ export class ApiHandler {
    */
   async fetchRandomRecipe() {
     try {
-      const apiUrl = `${this.#baseURL}/random.php`
+      const apiUrl = `${this.#baseURL}${this.#randomRecipeEndpoint}`
       const data = await this.#fetchFromApi(apiUrl)
 
       return data.meals[0]
