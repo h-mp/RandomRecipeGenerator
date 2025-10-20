@@ -62,19 +62,26 @@ customElements.define("recipe-application",
         this.#recipeCard.recipe = formulatedRecipe
         this.shadowRoot.querySelector('.recipeCardContainer').style.display = 'flex'
       } catch (error) {
-        this.#showErrorMessage()
+        this.#showErrorMessage("A problem occurred, please try again.")
       }
     }
 
-    /**
-     * Shows an error message in the UI.
-     */
-    #showErrorMessage () {
-      const errorMessage = this.shadowRoot.querySelector('#errorMessage')
-      errorMessage.style.display = 'block'
+  /**
+   * Shows an error message in the UI for 4 seconds.
+   * 
+   * @param {String} message - Custom error message to display
+   */
+  #showErrorMessage(message) {
+    const errorMessage = this.shadowRoot.querySelector('#errorMessage')
+    errorMessage.textContent = message
+    errorMessage.style.display = 'block'
 
-      console.error('Error fetching or displaying recipe:', error.message)
-    }
+    console.error('Error:', message)
+
+    setTimeout(() => {
+      errorMessage.style.display = 'none'
+    }, 4000)
+  }
 
     /**
      * Fetches a random recipe from the API.
@@ -83,7 +90,7 @@ customElements.define("recipe-application",
      */
     async #fetchRecipe () {
       const apiUrl = import.meta.env.VITE_THEMEALDB_API_URL
-      
+
       const apiHandler = new ApiHandler(apiUrl)
       const recipe = await apiHandler.fetchRandomRecipe()
       return recipe

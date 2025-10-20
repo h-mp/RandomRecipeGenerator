@@ -33,6 +33,7 @@ recipeApplicationTemplate.innerHTML = `
     color: red;
     text-align: center;
     display: none;
+    padding: 0px;
   }
 </style>
 
