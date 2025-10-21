@@ -6,7 +6,7 @@
  */
 
 import { UNIT_CONVERSIONS } from './unitConversions.js'
-import { UnitConverter } from '../../../module/UnitConverter-1.0.2/src/unitConverter.js'
+import { UnitConverter } from '../../../module/UnitConverter-1.0.2/src/UnitConverter.js'
 
 export class RecipeConverter {
   #unitConverter
