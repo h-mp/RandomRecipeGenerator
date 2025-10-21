@@ -19,12 +19,14 @@ const testRecipe = {
   strMeasure2: "200 g",
   strIngredient3: "Ingredient 3",
   strMeasure3: "3 tbsp",
-  strIngredient4: "",
-  strMeasure4: "",
+  strIngredient4: "Ingredient 4",
+  strMeasure4: "a few slices",
   strIngredient5: null,
   strMeasure5: null,
   strIngredient6: "Ingredient 6",
   strMeasure6: "",
+  strIngredient7: "",
+  strMeasure7: ""
 }
 
 // Test to check formulation of the recipe from raw data
@@ -37,7 +39,7 @@ test('Formulate Recipe Instructions - Normal Case', () => {
   expect(formulatedRecipe).toHaveProperty('origin', 'Test Area')
   expect(formulatedRecipe).toHaveProperty('ingredients')
   expect(Array.isArray(formulatedRecipe.ingredients)).toBe(true)
-  expect(formulatedRecipe.ingredients.length).toBe(4)
+  expect(formulatedRecipe.ingredients.length).toBe(5)
   expect(formulatedRecipe).toHaveProperty('instructions')
   expect(Array.isArray(formulatedRecipe.instructions)).toBe(true)
   expect(formulatedRecipe.instructions.length).toBe(3)
@@ -50,10 +52,12 @@ test('Formulate Recipe Instructions - No Data', () => {
   }).toThrow("No data provided to formulate")
 })
 
+
+
 // Test to check formulation of the recipe with missing instructions
 test('Formulate Recipe Instructions - Missing Instructions', () => {
-  const recipeWithNoInstructions = { ...testRecipe, strInstructions: null }
-  const formulatedRecipe = recipeFormulator.formulateRecipeData(recipeWithNoInstructions)
+  const noInstructionsRecipe = { ...testRecipe, strInstructions: null }
+  const formulatedRecipe = recipeFormulator.formulateRecipeData(noInstructionsRecipe)
 
   expect(formulatedRecipe).toHaveProperty('instructions')
   expect(Array.isArray(formulatedRecipe.instructions)).toBe(true)
@@ -63,14 +67,11 @@ test('Formulate Recipe Instructions - Missing Instructions', () => {
 
 // Test to check formulation of the recipe with mixed number amounts
 test('Formulate Recipe Instructions - Mixed Number Amounts', () => {
-  const recipeWithMixedAmounts = { ...testRecipe }
-  recipeWithMixedAmounts.strMeasure1 = "1 1/2 cup"
-  recipeWithMixedAmounts.strMeasure2 = "3/4 l"
-  const formulatedRecipe = recipeFormulator.formulateRecipeData(recipeWithMixedAmounts)
+  const mixedAmountRecipe = { ...testRecipe }
+  mixedAmountRecipe.strMeasure1 = "1 1/2 cup"
+  mixedAmountRecipe.strMeasure2 = "3/4 l"
+  const formulatedRecipe = recipeFormulator.formulateRecipeData(mixedAmountRecipe)
 
-  expect(formulatedRecipe).toHaveProperty('ingredients')
-  expect(Array.isArray(formulatedRecipe.ingredients)).toBe(true)
-  expect(formulatedRecipe.ingredients.length).toBe(4)
   expect(formulatedRecipe.ingredients[0]).toEqual({
     ingredient: 'Ingredient 1',
     amount: 1.5,
@@ -83,16 +84,40 @@ test('Formulate Recipe Instructions - Mixed Number Amounts', () => {
   })
 })
 
+// Test to check formulation of the recipe with text measures
+test('Formulate Recipe Instructions - Text Measures', () => {
+  const textMeasureRecipe = { ...testRecipe }
+  textMeasureRecipe.strMeasure1 = "a pinch"
+  textMeasureRecipe.strMeasure2 = "some"
+  const formulatedRecipe = recipeFormulator.formulateRecipeData(textMeasureRecipe)
+
+  expect(formulatedRecipe.ingredients[0]).toEqual({
+    ingredient: 'Ingredient 1',
+    amount: '',
+    unit: 'a pinch'
+  })
+  expect(formulatedRecipe.ingredients[1]).toEqual({
+    ingredient: 'Ingredient 2',
+    amount: '',
+    unit: 'some'
+  })
+  expect(formulatedRecipe.ingredients[3]).toEqual({
+    ingredient: 'Ingredient 4',
+    amount: '',
+    unit: 'a few slices'
+  })
+})
+
 // Test to check formulation of the recipe with fraction amounts
 test('Formulate Recipe Instructions - Fraction Amounts', () => {
-  const recipeWithFractionAmounts = { ...testRecipe }
-  recipeWithFractionAmounts.strMeasure1 = "1/4 cup"
-  recipeWithFractionAmounts.strMeasure2 = "2/5 tbsp"
-  const formulatedRecipe = recipeFormulator.formulateRecipeData(recipeWithFractionAmounts)
+  const fractionAmountRecipe = { ...testRecipe }
+  fractionAmountRecipe.strMeasure1 = "1/4 cup"
+  fractionAmountRecipe.strMeasure2 = "2/5 tbsp"
+  const formulatedRecipe = recipeFormulator.formulateRecipeData(fractionAmountRecipe)
 
   expect(formulatedRecipe).toHaveProperty('ingredients')
   expect(Array.isArray(formulatedRecipe.ingredients)).toBe(true)
-  expect(formulatedRecipe.ingredients.length).toBe(4)
+  expect(formulatedRecipe.ingredients.length).toBe(5)
   expect(formulatedRecipe.ingredients[0]).toEqual({
     ingredient: 'Ingredient 1',
     amount: 0.25,

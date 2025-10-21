@@ -9,7 +9,7 @@ import { RecipeConverter } from '../src/components/recipeConverter/recipeConvert
 const recipeConverter = new RecipeConverter()
 
 // Test to check single ingredient conversion
-test('Convert Single Ingredient', () => {
+test('Convert Recipe - Single Ingredient', () => {
   const ingredient = { ingredient: 'Sugar', amount: '1', unit: 'cup' }
   const converted = recipeConverter.convertIngredientValues([ingredient])
 
@@ -22,7 +22,7 @@ test('Convert Single Ingredient', () => {
 })
 
 // Test to check multiple ingredients conversion
-test('Convert Multiple Ingredients', () => {
+test('Convert Recipe - Multiple Ingredients', () => {
   const ingredients = [
     { ingredient: 'Flour', amount: '2', unit: 'cup' },
     { ingredient: 'Butter', amount: '100', unit: 'g' },
@@ -39,7 +39,7 @@ test('Convert Multiple Ingredients', () => {
 })
 
 // Test to check ingredient with no conversion available
-test('Convert Ingredient with No Conversion Available', () => {
+test('Convert Recipe - No Conversion Available', () => {
   const ingredient = { ingredient: 'Salt', amount: '1', unit: 'pinch' }
   const converted = recipeConverter.convertIngredientValues([ingredient])
 
@@ -48,7 +48,7 @@ test('Convert Ingredient with No Conversion Available', () => {
 })
 
 // Test to check ingredient with no amount
-test('Convert Ingredient with No Amount', () => {
+test('Convert Recipe - No Amount', () => {
   const ingredient = { ingredient: 'Pepper', amount: '', unit: 'to taste' }
   const converted = recipeConverter.convertIngredientValues([ingredient])
 
@@ -57,7 +57,7 @@ test('Convert Ingredient with No Amount', () => {
 })
 
 // Test to check ingredient with no amount or unit
-test('Convert Ingredient with No Amount or Unit', () => {
+test('Convert Recipe - No Amount Or Unit', () => {
   const ingredient = { ingredient: 'Water', amount: '', unit: '' }
   const converted = recipeConverter.convertIngredientValues([ingredient])
 
