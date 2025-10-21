@@ -35,16 +35,16 @@ export class RecipeFormulator {
   /**
    * Separates ingredient and measure data from the raw recipe data.
    * 
-   * @param {Object} data - The raw recipe data from the API.
+   * @param {Object} ingredientData - The raw ingredient data from the API.
    * @returns {Array} - An array of ingredient objects with ingredient and measure properties.
    */
-  #separateIngredientData(data) {
+  #separateIngredientData(ingredientData) {
     const ingredients = []
     const maxIngredients = 30
 
     for (let i = 1; i <= maxIngredients; i++) {
-      const ingredient = data[`strIngredient${i}`]
-      const measure = data[`strMeasure${i}`]      
+      const ingredient = ingredientData[`strIngredient${i}`]
+      const measure = ingredientData[`strMeasure${i}`]      
       
       if (ingredient && ingredient.trim() !== '') {
         const {amount, unit} = this.#separateAmountAndUnit(measure || '')
@@ -86,41 +86,44 @@ export class RecipeFormulator {
   /**
    * Converts mixed amount strings to a float value.
    * 
-   * @param {String} amountStr - The amount string from the measure.
+   * @param {String} amountString - The amount string from the measure.
+   * @returns {Number} - The converted float amount.
    */
-  #convertMixedAmounts(amountStr) {
-    if (!amountStr || amountStr.trim() === '') return ''
+  #convertMixedAmounts(amountString) {
+    if (!amountString || amountString.trim() === '') return ''
 
-    // Mixed numbers
-    if (amountStr.includes(' ')) {
-      return this.#convertMixedNumbers(amountStr)
+    if (amountString.includes(' ')) {
+      return this.#convertMixedNumbers(amountString)
     }
 
-    // Fractions
-    if (amountStr.includes('/')) {
-      return this.#convertFraction(amountStr)
+    if (amountString.includes('/')) {
+      return this.#convertFraction(amountString)
     }
 
-    return parseFloat(amountStr)
+    return parseFloat(amountString)
   }
 
   /**
    * Converts mixed number strings to a usable float value.
    * 
-   * @param {String} amountStr - The mixed number string.
+   * @param {String} amountString - The mixed number string.
+   * @returns {Number} - The converted float value.
    */
-  #convertMixedNumbers(amountStr) {
-    const [whole, fraction] = amountStr.split(' ')
+  #convertMixedNumbers(amountString) {
+    const [whole, fraction] = amountString.split(' ')
+
     return parseFloat(whole) + this.#convertFraction(fraction)
   }
 
   /**
    * Converts a fraction string to a usable float value.
    * 
-   * @param {String} fractionStr - The fraction string.
+   * @param {String} fractionString - The fraction string.
+   * @returns {Number} - The converted float value.
    */
-  #convertFraction(fractionStr) {
-    const [numerator, denominator] = fractionStr.split('/')
+  #convertFraction(fractionString) {
+    const [numerator, denominator] = fractionString.split('/')
+
     return parseFloat(numerator) / parseFloat(denominator)
   }
 

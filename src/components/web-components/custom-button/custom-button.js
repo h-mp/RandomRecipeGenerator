@@ -18,32 +18,19 @@ customElements.define("custom-button",
       this.shadowRoot.appendChild(customButtonTemplate.content.cloneNode(true))
     }
 
-    connectedCallback () {
-      this.#setButtonEventListener()
-    }
-
-    /**
-     * Returns the action field.
-     * 
-     * @returns {string} The action name.
-     */
     get action () {
       return this.#buttonClickAction
     }
 
-    /**
-     * Sets the action field.
-     *
-     * @param {string} value - The action value.
-     */
     set action (value) {
       this.#buttonClickAction = value
     }
 
-    /**
-     * Sets the event listener for the button click event.
-     */
-    #setButtonEventListener () {
+    connectedCallback () {
+      this.#setEventListener()
+    }
+
+    #setEventListener () {
       const btn = this.shadowRoot.querySelector('.btn');
 
       btn.addEventListener('click', () => {
@@ -55,14 +42,9 @@ customElements.define("custom-button",
       })
     }
 
-    /**
-     * Sets the text displayed on the button.
-     *
-     * @param {string} value - The text to display on the button.
-     */
-    setButtonText (value) {
+    setButtonText (text) {
       const spanElement = this.shadowRoot.querySelector('.spanText')
-      spanElement.textContent = value
+      spanElement.textContent = text
     }
   }
 )

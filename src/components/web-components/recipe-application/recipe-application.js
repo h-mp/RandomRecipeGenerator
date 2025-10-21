@@ -14,21 +14,21 @@ import '../recipe-card/recipe-card.js'
 customElements.define("recipe-application", 
   class RecipeApplication extends HTMLElement {
     #recipeCard
+    #apiHandler
 
     constructor () {
       super()
 
       this.attachShadow({ mode: 'open' })
       this.shadowRoot.appendChild(recipeApplicationTemplate.content.cloneNode(true))
+
+      this.#apiHandler = new ApiHandler(import.meta.env.VITE_THEMEALDB_API_URL)
     }
 
     connectedCallback () {
       this.#createRandomRecipeButton()
     }
 
-    /**
-     * Creates the button for fetching a random recipe.
-     */
     #createRandomRecipeButton () {
       const customButton = document.createElement('custom-button')
       customButton.action = 'get-random-recipe'
@@ -43,9 +43,6 @@ customElements.define("recipe-application",
       })
     }
 
-    /**
-     * Displays a random recipe.
-     */
     async #displayRandomRecipe () {
       try {
         const recipe = await this.#fetchRecipe()
@@ -63,33 +60,20 @@ customElements.define("recipe-application",
       }
     }
 
-  /**
-   * Shows an error message in the UI for 4 seconds.
-   * 
-   * @param {String} message - Custom error message to display
-   */
   #showErrorMessage(message) {
+    const displayTime = 4000
     const errorMessage = this.shadowRoot.querySelector('#errorMessage')
     errorMessage.textContent = message
     errorMessage.style.display = 'block'
 
-    console.error('Error:', message)
-
     setTimeout(() => {
       errorMessage.style.display = 'none'
-    }, 4000)
+    }, displayTime)
   }
 
-    /**
-     * Fetches a random recipe from the API.
-     * 
-     * @returns {Object} A random recipe object from the API.
-     */
     async #fetchRecipe () {
-      const apiUrl = import.meta.env.VITE_THEMEALDB_API_URL
+      const recipe = await this.#apiHandler.fetchRandomRecipe()
 
-      const apiHandler = new ApiHandler(apiUrl)
-      const recipe = await apiHandler.fetchRandomRecipe()
       return recipe
     }
 
@@ -102,12 +86,10 @@ customElements.define("recipe-application",
     #formulateRecipeData (recipe) {
       const recipeFormulator = new RecipeFormulator()
       const formulatedRecipe = recipeFormulator.formulateRecipeData(recipe)
+
       return formulatedRecipe
     }
 
-    /**
-     * Creates a new recipe card.
-     */
     #createRecipeCard () {
       const recipeCardContainer = this.shadowRoot.querySelector('.recipeCardContainer')
       const recipeCard = document.createElement('recipe-card')

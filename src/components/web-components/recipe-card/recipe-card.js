@@ -13,7 +13,7 @@ customElements.define("recipe-card",
   class RecipeCard extends HTMLElement {
     #recipeConverter
 
-    #recipe
+    #currentRecipe
 
     #convertedIngredients
 
@@ -42,15 +42,12 @@ customElements.define("recipe-card",
       if (!recipeData) {
         return
       }
-      this.#recipe = recipeData
+      this.#currentRecipe = recipeData
       this.#convertedIngredients = undefined
 
       this.#displayRecipe(recipeData)
     }
 
-    /**
-     * Creates and appends the custom convert button to the recipe card.
-     */
     #createConvertButton () {
       const customButton = document.createElement('custom-button')
       customButton.action = 'convert-values'
@@ -84,14 +81,11 @@ customElements.define("recipe-card",
       this.#displayInstructions(recipeData.instructions)
     }
 
-    /**
-     * Handles the conversion of recipe ingredient values.
-     */
     #handleRecipeConversion () {
       if (!this.#isConvertedIngredients) {
         // Convert if not already converted
         if (!this.#convertedIngredients) {
-          this.#convertedIngredients = this.#recipeConverter.convertIngredientValues(this.#recipe.ingredients)
+          this.#convertedIngredients = this.#recipeConverter.convertIngredientValues(this.#currentRecipe.ingredients)
         }
 
         this.#displayIngredients(this.#convertedIngredients)
@@ -100,7 +94,7 @@ customElements.define("recipe-card",
         this.shadowRoot.querySelector('.customButtonContainer custom-button').setButtonText('Show Original')
       } else {
         // Show original
-        this.#displayIngredients(this.#recipe.ingredients)
+        this.#displayIngredients(this.#currentRecipe.ingredients)
         this.#isConvertedIngredients = false
 
         this.shadowRoot.querySelector('.customButtonContainer custom-button').setButtonText('Convert Values')

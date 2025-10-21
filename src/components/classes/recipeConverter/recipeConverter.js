@@ -5,13 +5,10 @@
  * @version 1.0.0
  */
 
-import { UnitConverter } from '../../../../module/UnitConverter-1.0.2/src/unitConverter.js'
 import { UNIT_CONVERSIONS } from './unitConversions.js'
+import { UnitConverter } from '../../../../module/UnitConverter-1.0.2/src/unitConverter.js'
 
 export class RecipeConverter {
-  /**
-   * UnitConverter instance for converting ingredient amounts.
-   */
   #unitConverter
 
   constructor () {
@@ -21,7 +18,7 @@ export class RecipeConverter {
   /**
    * Converts the ingredient values in the recipe data.
    * 
-   * @param {Object} recipeData - The recipe data object.
+   * @param {Object} ingredients - The ingredients array from the recipe data.
    */
   convertIngredientValues (ingredients) {
     const convertedIngredients = ingredients.map(ingredient => this.#convertIngredient(ingredient))
@@ -32,7 +29,7 @@ export class RecipeConverter {
   /**
    * Converts a single ingredient's amount and unit.
    * 
-   * @param {Object} ingredient - The ingredient object with amount and unit.
+   * @param {Object} ingredient - The ingredient object with an amount and unit.
    */
   #convertIngredient (ingredient) {
     if (!ingredient.amount || isNaN(ingredient.amount) || !ingredient.unit || ingredient.unit === '') {
