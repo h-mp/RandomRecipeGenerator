@@ -21,8 +21,8 @@ License MIT
 Random Recipe Generator is a web application for fetching random recipes from around the world. 
 Users can easily convert ingredient measurements between US and Metric systems.
 
-The live version can be accessed here:
-[]()
+The deployed version can be accessed here:
+[https://randomrecipe-generator.netlify.app/](https://randomrecipe-generator.netlify.app/)
 
 The application is built focusing on:
 - Modular web components
