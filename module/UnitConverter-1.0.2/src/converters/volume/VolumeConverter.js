@@ -51,9 +51,6 @@ export class VolumeConverter extends ConverterBaseClass {
     }
   }
 
-  /**
-   * Initializes the converters.
-   */
   #initializeConverters() {
     this._cupsToDecilitersConverter = new CupsToDecilitersConverter()
     this._decilitersToCupsConverter = new DecilitersToCupsConverter()
@@ -73,8 +70,9 @@ export class VolumeConverter extends ConverterBaseClass {
    * @returns {Number} - The converted number
    */
   convert(convertFrom, convertTo, numberToConvert) {
+    this._validateStringInput(convertFrom)
+    this._validateStringInput(convertTo)
     this._validateNumberInput(numberToConvert)
-    this._validateStringInputs(convertFrom, convertTo)
 
     const normalizedFrom = this._normalizeAbbreviation(convertFrom)
     const normalizedTo = this._normalizeAbbreviation(convertTo)

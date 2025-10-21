@@ -11,7 +11,6 @@ import { InchesToCentimetersConverter } from './InchesToCentimetersConverter.js'
 import { MetersToFeetConverter } from './MetersToFeetConverter.js'
 
 export class LengthConverter extends ConverterBaseClass {
-
   _centimetersToInchesConverter
   _inchesToCentimetersConverter
   _metersToFeetConverter
@@ -21,7 +20,6 @@ export class LengthConverter extends ConverterBaseClass {
     super()
     this.#initializeConverters()
 
-    // The unit abbreviation conversions
     this._unitAbbreviationConversions = {
       "m": "meters",
       "meter": "meters",
@@ -36,7 +34,6 @@ export class LengthConverter extends ConverterBaseClass {
       "inch": "inches",
     }
 
-    // The available conversions
     this._availableConversions = {
       "meters-feet": this._metersToFeetConverter,
       "feet-meters": this._feetToMetersConverter,
@@ -45,9 +42,6 @@ export class LengthConverter extends ConverterBaseClass {
     }
   }
 
-  /**
-   * Initializes the converters.
-   */
   #initializeConverters() {
     this._centimetersToInchesConverter = new CentimetersToInchesConverter()
     this._inchesToCentimetersConverter = new InchesToCentimetersConverter()
@@ -64,8 +58,9 @@ export class LengthConverter extends ConverterBaseClass {
    * @returns {Number} - The converted number
    */
   convert(convertFrom, convertTo, numberToConvert) {
+    this._validateStringInput(convertFrom)
+    this._validateStringInput(convertTo)
     this._validateNumberInput(numberToConvert)
-    this._validateStringInputs(convertFrom, convertTo)
 
     const normalizedFrom = this._normalizeAbbreviation(convertFrom.toLowerCase())
     const normalizedTo = this._normalizeAbbreviation(convertTo.toLowerCase())

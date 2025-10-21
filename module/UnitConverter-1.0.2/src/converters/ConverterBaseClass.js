@@ -20,28 +20,13 @@ export class ConverterBaseClass {
     this._inputValidator = new InputValidator()
   }
 
-  /**
-   * Validates the number input.
-   * 
-   * @param {*} numberInput - The input number
-   * @throws {Error} - If the input is not a number
-   * @throws {Error} - If the input is not a positive number
-   */
   _validateNumberInput(numberInput) {
     this._inputValidator.validateInputTypeNumber(numberInput)
     this._inputValidator.validatePositiveNumber(numberInput)
   }
 
-  /**
-   * Validates the string inputs.
-   * 
-   * @param {*} convertFromInput - The input string to convert from
-   * @param {*} convertToInput - The input string to convert to
-   * @throws {Error} - If the inputs are not strings
-   */
-  _validateStringInputs(convertFromInput, convertToInput) {
-    this._inputValidator.validateInputTypeString(convertFromInput)
-    this._inputValidator.validateInputTypeString(convertToInput)
+  _validateStringInput(stringInput) {
+    this._inputValidator.validateInputTypeString(stringInput)
   }
 
   /**

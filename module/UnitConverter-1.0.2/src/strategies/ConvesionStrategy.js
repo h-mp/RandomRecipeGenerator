@@ -5,17 +5,9 @@
  */
 
 export class ConversionStrategy {
-  /**
-   * The conversion rate. 
-   * Should be protected.
-   */
+  // Should be protected
   _conversionRate
 
-  /**
-   * Converts the number.
-   * 
-   * @param {Number} number - The number to convert
-   */
   convert(number) {
     throw new Error('Not implemented')
   }

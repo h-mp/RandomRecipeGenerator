@@ -9,21 +9,14 @@ import { InputValidator } from '../../InputValidator.js'
 
 export class FahrenheitToCelsiusConverter extends ConversionStrategy {
   #inputValidator
-  /**
-   * Conversion factor from Fahrenheit to Celsius.
-   */
-  #FToCConversionFactor
-
-  /**
-   * Conversion offset from Fahrenheit to Celsius.
-   */
-  #FToCConversionOffset
+  #FahrenheitToCelsiusConversionFactor
+  #FahrenheitToCelsiusConversionOffset
 
   constructor() {
     super()
     this.#inputValidator = new InputValidator()
-    this.#FToCConversionFactor = 1.8
-    this.#FToCConversionOffset = 32
+    this.#FahrenheitToCelsiusConversionFactor = 1.8
+    this.#FahrenheitToCelsiusConversionOffset = 32
   }
 
   /**
@@ -36,6 +29,6 @@ export class FahrenheitToCelsiusConverter extends ConversionStrategy {
   convert(fahrenheit) {
     this.#inputValidator.validateFahrenheitRange(fahrenheit)
 
-    return (fahrenheit - this.#FToCConversionOffset) / this.#FToCConversionFactor
+    return (fahrenheit - this.#FahrenheitToCelsiusConversionOffset) / this.#FahrenheitToCelsiusConversionFactor
   }
 }

@@ -11,7 +11,6 @@ import { FpsToMsConverter } from './FpsToMsConverter.js'
 import { MsToFpsConverter } from './MsToFpsConverter.js'
 
 export class SpeedConverter extends ConverterBaseClass {
-
   _mphToKmhConverter
   _kmhToMphConverter
   _fpsToMsConverter
@@ -21,7 +20,6 @@ export class SpeedConverter extends ConverterBaseClass {
     super()
     this.#initializeConverters()
 
-    // The unit abbreviation conversions
     this._unitAbbreviationConversions = {
       "mph": "milesPerHour",
       "miles per hour": "milesPerHour",
@@ -36,7 +34,6 @@ export class SpeedConverter extends ConverterBaseClass {
       "meters per second": "metersPerSecond"
     }
 
-    // The available conversions
     this._availableConversions = {
       "milesPerHour-kilometersPerHour": this._mphToKmhConverter,
       "kilometersPerHour-milesPerHour": this._kmhToMphConverter,
@@ -45,9 +42,6 @@ export class SpeedConverter extends ConverterBaseClass {
     }
   }
 
-  /**
-   * Initializes the converters.
-   */
   #initializeConverters() {
     this._mphToKmhConverter = new MphToKmhConverter()
     this._kmhToMphConverter = new KmhToMphConverter()
@@ -65,8 +59,9 @@ export class SpeedConverter extends ConverterBaseClass {
    * @returns {Number} - The converted number
    */
   convert(convertFrom, convertTo, numberToConvert) {
+    this._validateStringInput(convertFrom)
+    this._validateStringInput(convertTo)
     this._validateNumberInput(numberToConvert)
-    this._validateStringInputs(convertFrom, convertTo)
 
     const normalizedFrom = this._normalizeAbbreviation(convertFrom)
     const normalizedTo = this._normalizeAbbreviation(convertTo)

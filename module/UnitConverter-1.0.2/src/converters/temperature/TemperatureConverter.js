@@ -29,20 +29,11 @@ export class TemperatureConverter extends ConverterBaseClass {
     }
   }
 
-  /**
-   * Initializes the converters.
-   */
   #initializeConverters() {
     this._celsiusToFahrenheitConverter = new CelsiusToFahrenheitConverter()
     this._fahrenheitToCelsiusConverter = new FahrenheitToCelsiusConverter()
   }
 
-  /**
-   * Validates the input.
-   * 
-   * @param {*} input - The input
-   * @throws {Error} - If the input is not a number
-   */
   #validateTemperatureNumberInput(input) {
     this._inputValidator.validateInputTypeNumber(input)
   }
@@ -57,8 +48,9 @@ export class TemperatureConverter extends ConverterBaseClass {
    * @returns {Number} - The converted number
    */
   convert(convertFrom, convertTo, numberToConvert) {
+    this._validateStringInput(convertFrom)
+    this._validateStringInput(convertTo)
     this.#validateTemperatureNumberInput(numberToConvert)
-    this._validateStringInputs(convertFrom, convertTo)
 
     const normalizedFrom = this._normalizeAbbreviation(convertFrom)
     const normalizedTo = this._normalizeAbbreviation(convertTo)

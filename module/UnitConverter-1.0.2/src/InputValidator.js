@@ -5,63 +5,32 @@
  */
 
 export class InputValidator {
-  /**
-   * Fahrenheit absolute zero.
-   */
-  #FAbsoluteZero
-
-  /**
-   * Fahrenheit absolute zero.
-   */
-  #CAbsoluteZero
+  #FahrenheitAbsoluteZero
+  #CelsiusAbsoluteZero
 
   constructor() {
-    this.#FAbsoluteZero = -459.67
-    this.#CAbsoluteZero = -273.15
+    this.#FahrenheitAbsoluteZero = -459.67
+    this.#CelsiusAbsoluteZero = -273.15
   }
 
-  /**
-   * Validates the input type number.
-   *
-   * @param {*} input - The input
-   * @throws {Error} - If the input is not a number
-   */
   validateInputTypeNumber(input) {
     if (typeof input !== 'number' || isNaN(input)) {
       throw new Error('Input must be a number')
     }
   }
 
-  /**
-   * Validates the input type string.
-   *
-   * @param {*} input - The input
-   * @throws {Error} - If the input is not a string
-   */
   validateInputTypeString(input) {
     if (typeof input !== 'string') {
       throw new Error('Input must be a string')
     }
   }
 
-  /**
-   * Validates the input type array.
-   * 
-   * @param {*} input - The input
-   * @throws {Error} - If the input is not an array
-   */
   validateInputTypeArray(input) {
     if (!Array.isArray(input)) {
       throw new Error('Input must be an array')
     }
   }
 
-  /**
-   * Validates the input type.
-   *
-   * @param {Number} input - The input
-   * @throws {Error} - If the input is not a number
-   */
   validatePositiveNumber(input) {
     if (input < 0) {
       throw new Error('Number must be positive')
@@ -75,7 +44,7 @@ export class InputValidator {
    * @throws {Error} - If the temperature is below absolute zero 
    */
   validateCelsiusRange(celsius) {
-    if (celsius < this.#CAbsoluteZero) {
+    if (celsius < this.#CelsiusAbsoluteZero) {
       throw new Error('Temperature must be greater than or equal to -273.15°C')
     }
   }
@@ -87,7 +56,7 @@ export class InputValidator {
    * @throws {Error} - If the temperature is below absolute zero 
    */
   validateFahrenheitRange(fahrenheit) {
-    if (fahrenheit < this.#FAbsoluteZero) {
+    if (fahrenheit < this.#FahrenheitAbsoluteZero) {
       throw new Error('Temperature must be greater than or equal to -459.67°F')
     }
   }
