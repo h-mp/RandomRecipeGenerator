@@ -4,8 +4,8 @@
  * @author Hilja-Maria Paananen <hp222qn@student.lnu.se>
  */
 
-import { ApiHandler } from '../src/components/apiHandler/apiHandler.js'
-import { jest } from '@jest/globals';
+import { ApiHandler } from '../src/components/classes/apiHandler/apiHandler.js'
+import { jest } from '@jest/globals'
 
 const apiHandler = new ApiHandler('https://www.themealdb.com/api/json/v1/1')
 

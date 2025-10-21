@@ -1,3 +1,9 @@
+/**
+ * Template for the Custom-button Web Component.
+ * 
+ * @version 1.0.0
+ */
+
 export const customButtonTemplate = document.createElement('template')
 customButtonTemplate.innerHTML = `
 <style>

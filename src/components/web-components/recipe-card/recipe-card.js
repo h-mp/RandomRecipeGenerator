@@ -7,28 +7,16 @@
 
 import {recipeCardTemplate} from './recipeCardTemplate.js'
 import '../custom-button/custom-button.js'
-import { RecipeConverter } from '../recipeConverter/recipeConverter.js'
+import { RecipeConverter } from '../../classes/recipeConverter/recipeConverter.js'
 
 customElements.define("recipe-card",
   class RecipeCard extends HTMLElement {
-    /**
-     * RecipeConverter instance for converting ingredient amounts.
-     */
     #recipeConverter
 
-    /**
-     * The recipe data object.
-     */
     #recipe
 
-    /**
-     * The converted ingredients array.
-     */
     #convertedIngredients
 
-    /**
-     * Indicates if the ingredients have been converted.
-     */
     #isConvertedIngredients
 
     constructor () {

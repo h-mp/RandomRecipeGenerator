@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-import '../components/recipe-application/recipe-application.js'
+import '../components/web-components/recipe-application/recipe-application.js'
 
 try {
   const recipeAppContainer = document.querySelector('#recipeApp')

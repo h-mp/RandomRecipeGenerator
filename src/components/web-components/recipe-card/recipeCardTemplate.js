@@ -1,3 +1,9 @@
+/**
+ * Template for the Recipe-card Web Component.
+ * 
+ * @version 1.0.0
+ */
+
 export const recipeCardTemplate = document.createElement('template')
 recipeCardTemplate.innerHTML = `
 <style>

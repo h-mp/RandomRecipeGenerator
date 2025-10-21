@@ -4,7 +4,7 @@
  * @author Hilja-Maria Paananen <hp222qn@student.lnu.se>
  */
 
-import { RecipeConverter } from '../src/components/recipeConverter/recipeConverter.js'
+import { RecipeConverter } from '../src/components/classes/recipeConverter/recipeConverter.js'
 
 const recipeConverter = new RecipeConverter()
 

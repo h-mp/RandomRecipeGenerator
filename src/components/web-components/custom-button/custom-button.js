@@ -9,10 +9,7 @@ import { customButtonTemplate } from './customButtonTemplate.js'
 
 customElements.define("custom-button", 
   class CustomButton extends HTMLElement {
-    /**
-     * The action name for the button-click event detail.
-     */
-    #action
+    #buttonClickAction
 
     constructor () {
       super()
@@ -31,7 +28,7 @@ customElements.define("custom-button",
      * @returns {string} The action name.
      */
     get action () {
-      return this.#action
+      return this.#buttonClickAction
     }
 
     /**
@@ -40,7 +37,7 @@ customElements.define("custom-button",
      * @param {string} value - The action value.
      */
     set action (value) {
-      this.#action = value
+      this.#buttonClickAction = value
     }
 
     /**
@@ -51,7 +48,7 @@ customElements.define("custom-button",
 
       btn.addEventListener('click', () => {
         this.dispatchEvent(new CustomEvent('button-click', {
-          detail: { action: this.#action },
+          detail: { action: this.#buttonClickAction },
           bubbles: true,
           composed: true
         }))

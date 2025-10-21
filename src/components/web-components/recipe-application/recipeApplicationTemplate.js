@@ -1,3 +1,9 @@
+/**
+ * Template for the Recipe-application Web Component.
+ * 
+ * @version 1.0.0
+ */
+
 export const recipeApplicationTemplate = document.createElement('template')
 recipeApplicationTemplate.innerHTML = `
 <style>
@@ -42,7 +48,7 @@ recipeApplicationTemplate.innerHTML = `
   <p>Click the button below to fetch a random recipe!</p>
   <div class="startButtonContainer">
   </div>
-  <p id="errorMessage">A problem occurred, please try again.</p>
+  <p id="errorMessage"></p>
   <div class="recipeCardContainer">
   </div>
 </div>

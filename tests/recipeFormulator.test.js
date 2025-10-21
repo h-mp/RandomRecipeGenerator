@@ -4,7 +4,7 @@
  * @author Hilja-Maria Paananen <hp222qn@student.lnu.se>
  */
 
-import { RecipeFormulator } from "../src/components/recipeFormulator/recipeFormulator";
+import { RecipeFormulator } from "../src/components/classes/recipeFormulator/recipeFormulator.js"
 
 const recipeFormulator = new RecipeFormulator()
 

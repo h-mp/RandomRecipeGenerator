@@ -1,3 +1,9 @@
+/**
+ * Unit conversion definitions for the RecipeConverter.
+ * 
+ * @version 1.0.0
+ */
+
 export const UNIT_CONVERSIONS = [
   {
     unitVariants: ["g", "gram", "grams"],

@@ -6,16 +6,13 @@
  */
 
 import { recipeApplicationTemplate } from './recipeApplicationTemplate.js'
-import { ApiHandler } from '../apiHandler/apiHandler.js'
-import { RecipeFormulator } from '../recipeFormulator/recipeFormulator.js'
+import { ApiHandler } from '../../classes/apiHandler/apiHandler.js'
+import { RecipeFormulator } from '../../classes/recipeFormulator/recipeFormulator.js'
 import '../custom-button/custom-button.js'
 import '../recipe-card/recipe-card.js'
 
 customElements.define("recipe-application", 
   class RecipeApplication extends HTMLElement {
-    /**
-     * The recipe card element.
-     */
     #recipeCard
 
     constructor () {
