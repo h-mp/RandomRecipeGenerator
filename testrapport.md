@@ -3,7 +3,7 @@
 För att köra de automatiska testerna, använd följande kommando i terminalen:
 
 ```sh
-npm test
+npm run test
 ```
 
 Varje klass-element har Jest-testfall som finns i /tests mappen.
