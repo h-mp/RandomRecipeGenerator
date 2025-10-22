@@ -20,9 +20,10 @@ An example of good naming:
 
 ![fetchRandomRecipe name example](reflection-images/naming-example.png)
 
-I wonder if using Handler (apiHandler), application (recipe-application) or Coordinator in class and component names is too vague. These might fall into the same category as Manager and Processor that are mentioned in the book. On the other hand I could not come up with better alternatives.
+I wonder if using Handler (ApiHandler), application (recipe-application) or Coordinator in class and component names is too vague. These might fall into the same category as Manager and Processor that are mentioned in the book. On the other hand I could not come up with better alternatives.
 
 Additionally, I am not quite satisfied with are the names of converters in the UnitConverter module. I aimed for consistency and clarity by naming them by their purpose. With a large number of conversions available, the names became a bit hard to read and too long. 
+
 In speed converters I have even used abbreviations to make the names significantly shorter. It is against Clean Code principles, as abbreviations are easy to misunderstand and hard to pronounce.
 
 ![Module speed converter file names](reflection-images/module-filenames.png)
@@ -31,7 +32,7 @@ In speed converters I have even used abbreviations to make the names significant
 
 ## Chapter 3: Functions
 
-I tried to keep my methods small and with a single responsibility by separating methods into multiple parts. Even in the UnitConverter module, I kept methods as small as possible.
+I tried to keep my methods small and with a single responsibility by separating them into multiple parts. Even in the UnitConverter module, I kept methods as small as possible.
 
 ![createRecipeCard small function](reflection-images/small-clear-function.png)
 ![module small function](reflection-images/module-small-function.png)
@@ -50,7 +51,7 @@ In my app i succeeded quite well in keeping function arguments minimal. The same
 
 I used JSDoc on many class methods to explain functionality and expected input/output. Methods with self explanatory names and arguments were left without JSDoc. 
 
-I avoided using inline comments when the code was self-explanatory. I tried to make the code explain it's functionality instead of using comments.
+I avoided using inline comments when the code was self-explanatory. I tried to make the code itself explain it's functionality instead of using comments.
 There is however a couple of exceptions where a comment made a syntax easier to understand.
 
 ![JSDoc documentation and inline comment](reflection-images/documentation-and-comments.png)
@@ -82,7 +83,7 @@ The UnitConverter module also encapsulates conversion logic quite well.
 
 ## Chapter 7: Error Handling
 
-I used a try...catch block in ApiHandler to handle API related issues gracefully. I wonder however, if it is against Clean Code to throw errors inside of catch blocks. Another try...catch block is located in the recipe-application to handle all possible problems by showing a message in the UI. 
+I used a try...catch block in ApiHandler to handle API related issues gracefully. I wonder however, if it is against Clean Code to throw errors inside of catch blocks. Another try...catch block is located in the recipe-application to handle all possible problems by showing an error message in the UI. 
 
 ![ApiHandler error handling](reflection-images/error-handling.png)
 
@@ -98,7 +99,7 @@ When I do throw errors, the messages are informative, like "Failed to fetch data
 
 My main boundary is TheMealDB API, which is accessed only through the ApiHandler class. Isolating API communication in one module lets me easily change the data source later without greatly affecting the UI. This also makes adding new functionality easier and supports separation of concerns.
 
-Similarly, my RecipeConverter class is the only module that uses the external UnitConverter module. This application only relies on UnitConverter's interface. It could easily be switched to a different module without affecting the rest of the application.
+Similarly, my RecipeConverter class is the only module that uses the external UnitConverter module. This whole application only relies on UnitConverter's interface. The module could easily be switched to a different module without affecting the rest of the application code.
 
 ![RecipeConverter module usage](reflection-images/module-usage.png)
 
@@ -106,8 +107,9 @@ Similarly, my RecipeConverter class is the only module that uses the external Un
 
 ## Chapter 9: Unit Tests
 
-The UnitConverter Module is almost completely covered by automatic Jest tests. Integration was easier knowing that the code works and has been tested. I named the tests descriptively and tried to ensure that they cover both normal and edge cases.  
-I tested one feature / behavior per test, but I did have many expect sequences with different values in each test case. If I understood correctly, it is not exactly Clean Code to assert multiple things in one test, but this approach felt more efficient.
+The UnitConverter Module is almost completely covered by automatic Jest tests. Integration was easier knowing that the code works and has been tested. I named my tests descriptively and tried to ensure that they cover both normal and edge cases. 
+
+I test one feature / behavior per test, but I do have many expect sequences with different values in each test case. If I understood correctly, it is not exactly Clean Code to assert multiple things in one test, but this approach felt more efficient.
 
 ![InputValidator test example](reflection-images/test-example.png)
 

@@ -16,6 +16,7 @@ Webbkomponenter har testats manuellt i webbläsaren (Chrome) enligt testrapporte
 ## Automatiska tester
 ### Översikt
 ![Jest test summary](testrapport-images/overview.png)
+
 Webbkomponenter har testats manuellt och täcks därför inte av Jest.
 
 ---
@@ -56,7 +57,7 @@ Webbkomponenter har testats manuellt och täcks därför inte av Jest.
 
 **Förväntat resultat:**
 - Ett nytt recept visas.
-- Receptkortet visar namn, bild, ursprung, ingredienser och instruktioner.
+- Receptkortet innehåller namn, bild, ursprung, ingredienser och instruktioner.
 - Ingredienser och instruktioner är korrekt listade.
 
 ---
@@ -94,7 +95,7 @@ Webbkomponenter har testats manuellt och täcks därför inte av Jest.
 
 **Steg:**
 1. Öppna webbsidan.
-2. Klicka på knappen "Get Random Recipe" tills ett recept med decimaltal visas (har formatterats från bråktal och blandade tal).
+2. Klicka på knappen "Get Random Recipe" tills ett recept med decimaltal visas (de har blivit formatterade från bråktal och blandade tal).
 3. Klicka på knappen "Convert Values".
 
 **Förväntat resultat:**
@@ -103,7 +104,7 @@ Webbkomponenter har testats manuellt och täcks därför inte av Jest.
 ---
 
 ### 5. Hantera textmått och tomma mått
-**Syfte:** Mått som "a pinch" eller tomma strängar hanteras korrekt.
+**Syfte:** Mått som "a pinch" och tomma strängar hanteras korrekt.
 
 **Steg:**
 1. Öppna webbsidan.
